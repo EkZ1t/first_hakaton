@@ -1,11 +1,13 @@
+from datetime import datetime
+
 import requests
 import telebot
 from telebot import types 
 from bs4 import BeautifulSoup 
 from bs4.element import ResultSet, Tag
 
-
-URL = 'https://kaktus.media/?lable=8&date=2023-01-26&order=time'
+date = datetime.today().date()
+URL = 'https://kaktus.media/?lable=8&date=' + str(date) +'&order=time'
 
 # основной парсинг
 
@@ -107,3 +109,4 @@ def send_preview(callback: types.CallbackQuery):
     bot.send_message(callback.message.chat.id, f'Держи статью! \n {data[int(callback.data)]["title"]} {data[int(callback.data)]["image_link"]} \n \n {article}', reply_markup=inline_keyboard)
 
 bot.polling()
+
